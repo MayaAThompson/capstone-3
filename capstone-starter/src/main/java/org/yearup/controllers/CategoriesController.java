@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/categories")
+@CrossOrigin
 // add the annotation to make this controller the endpoint for the following url
     // http://localhost:8080/categories
 // add annotation to allow cross site origin requests
@@ -27,14 +29,14 @@ public class CategoriesController
         this.productDao = productDao;
     }
 
-    @GetMapping("/categories")
+    @GetMapping("")
     public List<Category> getAll()
     {
         return categoryDao.getAllCategories();
     }
 
     // add the appropriate annotation for a get action
-    @GetMapping("/categories/{id}")
+    @GetMapping("/{id}")
     public Category getById(@PathVariable int id)
     {
         // get the category by id
@@ -43,7 +45,7 @@ public class CategoriesController
 
     // the url to return all products in category 1 would look like this
     // https://localhost:8080/categories/1/products
-    @GetMapping("/categories/{categoryId}/products")
+    @GetMapping("/{categoryId}/products")
     public List<Product> getProductsById(@PathVariable int categoryId)
     {
         // get a list of product by categoryId
@@ -52,7 +54,7 @@ public class CategoriesController
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
-    @PostMapping("/categories")
+    @PostMapping("")
     @Secured("ROLE_ADMIN")
     public Category addCategory(@RequestBody Category category)
     {
@@ -62,7 +64,7 @@ public class CategoriesController
 
     // add annotation to call this method for a PUT (update) action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
-    @PutMapping("/categories/{id}")
+    @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public void updateCategory(@PathVariable int id, @RequestBody Category category)
     {
@@ -73,7 +75,7 @@ public class CategoriesController
 
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/{id}")
     @Secured("ROLE_ADMIN")
     public void deleteCategory(@PathVariable int id)
     {

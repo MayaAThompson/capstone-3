@@ -10,7 +10,7 @@ import org.yearup.data.ProductDao;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+@SuppressWarnings({"unused", "FieldMayBeFinal"})
 @RestController
 @RequestMapping("products")
 @CrossOrigin
@@ -81,7 +81,7 @@ public class ProductsController
     {
         try
         {
-            productDao.create(product);
+            productDao.update(id, product);
         }
         catch(Exception ex)
         {
