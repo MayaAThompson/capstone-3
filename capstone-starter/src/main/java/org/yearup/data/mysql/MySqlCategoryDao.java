@@ -1,5 +1,6 @@
 package org.yearup.data.mysql;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yearup.data.CategoryDao;
 import org.yearup.models.Category;
@@ -9,9 +10,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Component
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 {
+
+    @Autowired
     public MySqlCategoryDao(DataSource dataSource)
     {
         super(dataSource);
@@ -22,8 +26,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     {
         // get all categories
         List<Category> categories = new ArrayList<>();
-        try {
-            Connection connection = getConnection();
+        try(Connection connection = getConnection()) {
             String query = """
                     SELECT *
                     FROM categories;""";
@@ -43,8 +46,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     {
         // get category by id
         Category category;
-        try {
-            Connection connection = getConnection();
+        try(Connection connection = getConnection()) {
             String query = """
                     SELECT *
                     FROM categories
@@ -65,8 +67,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     public Category create(Category category)
     {
         // create a new category
-        try {
-            Connection connection = getConnection();
+        try(Connection connection = getConnection()) {
             String insert = """
                     INSERT INTO categories (name, description)
                     VALUES (?, ?);""";
@@ -87,8 +88,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     @Override
     public void update(int categoryId, Category category)
     {
-        try {
-            Connection connection = getConnection();
+        try(Connection connection = getConnection()) {
             String update = """
                     UPDATE categories
                     SET name = ?, description = ?
@@ -106,8 +106,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     @Override
     public void delete(int categoryId)
     {
-        try {
-            Connection connection = getConnection();
+        try(Connection connection = getConnection()) {
+
             String delete = """
                     DELETE FROM categories
                     WHERE category_id = ?;""";
@@ -124,12 +124,6 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         String name = row.getString("name");
         String description = row.getString("description");
 
-        return new Category()
-        {{
-            setCategoryId(categoryId);
-            setName(name);
-            setDescription(description);
-        }};
+        return new Category(categoryId, name, description);
     }
-
 }
