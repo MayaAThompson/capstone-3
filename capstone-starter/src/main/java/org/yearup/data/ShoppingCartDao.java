@@ -8,8 +8,8 @@ import org.yearup.models.User;
 public interface ShoppingCartDao
 {
     ShoppingCart getByUserId(int userId);
-    void add(ShoppingCart cart, ShoppingCartItem item);
-    void update(ShoppingCart cart, ShoppingCartItem item, int quantity);
-    void delete(ShoppingCart cart);
+    ShoppingCart add(ShoppingCart cart, ShoppingCartItem item);
+    ShoppingCart update(ShoppingCart cart, ShoppingCartItem item, int quantity);
+    ShoppingCart delete(ShoppingCart cart);
     // add additional method signatures here
 }

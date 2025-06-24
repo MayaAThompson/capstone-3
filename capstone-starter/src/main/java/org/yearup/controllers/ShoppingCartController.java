@@ -14,9 +14,6 @@ import org.yearup.models.User;
 
 import java.security.Principal;
 
-// convert this class to a REST controller
-// only logged in users should have access to these actions
-
 @SuppressWarnings({"unused", "FieldMayBeFinal"})
 @RestController
 @Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -35,7 +32,6 @@ public class ShoppingCartController
         this.productDao = productDao;
     }
 
-    // each method in this controller requires a Principal object as a parameter
     @GetMapping("")
     public ShoppingCart getCart(Principal principal)
     {
@@ -46,20 +42,24 @@ public class ShoppingCartController
             // find database user by userId
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
-
             // use the shoppingcartDao to get all items in the cart and return the cart
-            return null;
+            return shoppingCartDao.getByUserId(userId);
         }
         catch(Exception e)
         {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/products/{productId}")
-    public ShoppingCart addItem(Principal principal, @RequestBody ShoppingCartItem item) {
+    public ShoppingCart addItem(Principal principal, @PathVariable int id) {
+
+        String userName = principal.getName();
+        User user = userDao.getByUserName(userName);
+        int userId = user.getId();
+        ShoppingCart cart = shoppingCartDao.getByUserId(userId);
 
         return null;
     }
