@@ -13,11 +13,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@SuppressWarnings("unused")
 @Component
 public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDao {
 
     public MySqlShoppingCartDao(DataSource dataSource) {
         super(dataSource);
+    }
+
+    protected static Product mapRow(ResultSet row) throws SQLException {
+        int productId = row.getInt("product_id");
+        String name = row.getString("name");
+        BigDecimal price = row.getBigDecimal("price");
+        int categoryId = row.getInt("category_id");
+        String description = row.getString("description");
+        String color = row.getString("color");
+        int stock = row.getInt("stock");
+        boolean isFeatured = row.getBoolean("featured");
+        String imageUrl = row.getString("image_url");
+
+        return new Product(productId, name, price, categoryId, description, color, stock, isFeatured, imageUrl);
     }
 
     @Override
@@ -46,40 +61,58 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
             return cart;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     @Override
-    public ShoppingCart add(ShoppingCart cart, ShoppingCartItem item) {
-
-        return null;
+    public void add(int userId, int productId) {
+        try (Connection connection = getConnection()) {
+            String sql = """
+                    INSERT INTO shopping_cart (user_id, product_id, quantity)
+                    VALUES (?, ?, 1);""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, productId);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override
-    public ShoppingCart update(ShoppingCart cart, ShoppingCartItem item, int quantity) {
+    public void update(int userId, int productId, int quantity) {
 
-        return null;
+        try (Connection connection = getConnection()) {
+            String sql = """
+                    UPDATE shopping_cart
+                    SET quantity = ?
+                    WHERE user_id = ? AND product_id = ?;""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, quantity);
+            statement.setInt(2, userId);
+            statement.setInt(3, productId);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @Override
-    public ShoppingCart delete(ShoppingCart cart) {
+    public void delete(int userId) {
 
-        return null;
-    }
-
-    protected static Product mapRow(ResultSet row) throws SQLException
-    {
-        int productId = row.getInt("product_id");
-        String name = row.getString("name");
-        BigDecimal price = row.getBigDecimal("price");
-        int categoryId = row.getInt("category_id");
-        String description = row.getString("description");
-        String color = row.getString("color");
-        int stock = row.getInt("stock");
-        boolean isFeatured = row.getBoolean("featured");
-        String imageUrl = row.getString("image_url");
-
-        return new Product(productId, name, price, categoryId, description, color, stock, isFeatured, imageUrl);
+        try (Connection connection = getConnection()) {
+            String sql = """
+                    DELETE FROM shopping_cart
+                    WHERE user_id = ?;""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
