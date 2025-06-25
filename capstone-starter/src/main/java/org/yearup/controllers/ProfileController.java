@@ -1,10 +1,7 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.yearup.data.ProfileDao;
 import org.yearup.data.UserDao;
 import org.yearup.models.Profile;
@@ -12,6 +9,7 @@ import org.yearup.models.User;
 
 import java.security.Principal;
 
+@SuppressWarnings({"unused", "FieldMayBeFinal"})
 @RestController
 @CrossOrigin
 @RequestMapping("/profile")
@@ -41,5 +39,14 @@ public class ProfileController {
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
         return profileDao.getByUserId(userId);
+    }
+
+    @PutMapping
+    public void update(Principal principal, @RequestBody Profile profile) {
+
+        String userName = principal.getName();
+        User user = userDao.getByUserName(userName);
+        int userId = user.getId();
+        profileDao.update(userId, profile);
     }
 }
