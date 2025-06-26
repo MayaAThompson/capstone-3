@@ -41,7 +41,7 @@ public class ProfileController {
         return profileDao.getByUserId(userId);
     }
 
-    @PutMapping
+    @PutMapping("")
     public void update(Principal principal, @RequestBody Profile profile) {
 
         String userName = principal.getName();

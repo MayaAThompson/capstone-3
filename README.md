@@ -26,7 +26,7 @@ This project is the backend for **EasyShop**, an e-commerce application built wi
 * JDK 17+
 * MySQL Server
 * IntelliJ IDEA Community Edition
-* Maven
+* Web Browser
 
 ### Setup
 
@@ -46,9 +46,9 @@ This project is the backend for **EasyShop**, an e-commerce application built wi
    Update the file `src/main/resources/application.properties` with your MySQL credentials:
 
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/easyshop
-   spring.datasource.username=yourUsername
-   spring.datasource.password=yourPassword
+   datasource.url=jdbc:mysql://localhost:3306/easyshop
+   datasource.username=yourUsername
+   datasource.password=yourPassword
    ```
 
 4. **Run the Application**
@@ -81,12 +81,25 @@ Categories:
 * `PUT /categories/{id}` *(Admin only)*
 * `DELETE /categories/{id}` *(Admin only)*
 
+Shopping Cart:
+
+* `GET /cart`
+* `POST /cart/products/{productId}`
+* `PUT /cart/products/{productId}`
+* `DELETE /cart`
+
+Profile:
+
+* `GET /profile`
+* `PUT /profile`
+
 ## Testing
 
 Use the provided Postman collections:
 
 * `easyshop.postman_collection.json`
-* `easyshop-optional.postman_collection.json`
+* `easyshop-optional.postman_collection.json`  
+note: Tests are based on the default state of the db. You will need to do a fresh import of the db for the tests to work properly.
 
 Import these into Postman to test all available endpoints.
 
@@ -95,6 +108,15 @@ Import these into Postman to test all available endpoints.
 * JWT tokens are required for accessing protected endpoints. Login first to obtain a token and include it in the `Authorization` header.
 * Bugs from the initial version have been identified and resolved.
 * Additional features are included per the Capstone project requirements.
+
+## Application Screens
+
+![Login Screen](./capstone-starter/src/main/resources/images/login_screen.png)  
+![Login Screen](./capstone-starter/src/main/resources/images/home_screen.png)  
+![Login Screen](./capstone-starter/src/main/resources/images/categories_dropdown.png)  
+![Login Screen](./capstone-starter/src/main/resources/images/colors_dropdown.png)  
+![Login Screen](./capstone-starter/src/main/resources/images/profile_screen.png)  
+![Login Screen](./capstone-starter/src/main/resources/images/cart_screen.png)  
 
 ## Example Code
 
