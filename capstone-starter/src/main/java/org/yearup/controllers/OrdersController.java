@@ -1,11 +1,13 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.OrderDao;
 import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
@@ -32,7 +34,7 @@ public class OrdersController {
 
     @PostMapping("")
     public void postOrder(Principal principal) {
-
+        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public OrderDao getOrderDao() {
