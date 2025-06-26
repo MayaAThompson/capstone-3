@@ -201,14 +201,22 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
         {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
-            statement.setBigDecimal(2, product.getPrice());
-            statement.setInt(3, product.getCategoryId());
-            statement.setString(4, product.getDescription());
-            statement.setString(5, product.getColor());
-            statement.setString(6, product.getImageUrl());
-            statement.setInt(7, product.getStock());
-            statement.setBoolean(8, product.isFeatured());
-            statement.setInt(9, productId);
+            statement.setString(2, product.getName());
+            statement.setBigDecimal(3, product.getPrice());
+            statement.setBigDecimal(4, product.getPrice());
+            statement.setInt(5, product.getCategoryId());
+            statement.setInt(6, product.getCategoryId());
+            statement.setString(7, product.getDescription());
+            statement.setString(8, product.getDescription());
+            statement.setString(9, product.getColor());
+            statement.setString(10, product.getColor());
+            statement.setString(11, product.getImageUrl());
+            statement.setString(12, product.getImageUrl());
+            statement.setInt(13, product.getStock());
+            statement.setInt(14, product.getStock());
+            statement.setBoolean(15, product.isFeatured());
+            statement.setBoolean(16, product.isFeatured());
+            statement.setInt(17, productId);
 
             statement.executeUpdate();
         }
