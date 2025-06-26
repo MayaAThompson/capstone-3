@@ -62,6 +62,7 @@ public class ProductsController
         }
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Product addProduct(@RequestBody Product product)
@@ -90,6 +91,7 @@ public class ProductsController
         }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteProduct(@PathVariable int id)
