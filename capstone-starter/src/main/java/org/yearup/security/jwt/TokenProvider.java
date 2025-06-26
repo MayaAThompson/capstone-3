@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 @Component
 public class TokenProvider implements InitializingBean
 {

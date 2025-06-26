@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class User {
 
    private int id;
@@ -112,7 +113,8 @@ public class User {
    @JsonIgnore
    public String getRole()
    {
-      if(authorities.size() > 0)
+       //noinspection SizeReplaceableByIsEmpty
+       if(authorities.size() > 0)
       {
          for(Authority role: authorities)
          {

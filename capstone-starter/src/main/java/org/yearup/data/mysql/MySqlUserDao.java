@@ -11,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Component
 public class MySqlUserDao extends MySqlDaoBase implements UserDao
 {
@@ -87,8 +88,7 @@ public class MySqlUserDao extends MySqlDaoBase implements UserDao
 
             if(row.next())
             {
-                User user = mapRow(row);
-                return user;
+                return mapRow(row);
             }
         }
         catch (SQLException e)
@@ -114,13 +114,12 @@ public class MySqlUserDao extends MySqlDaoBase implements UserDao
             if(row.next())
             {
 
-                User user = mapRow(row);
-                return user;
+                return mapRow(row);
             }
         }
         catch (SQLException e)
         {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return null;

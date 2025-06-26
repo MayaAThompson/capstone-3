@@ -1,5 +1,6 @@
 package org.yearup.models;
 
+@SuppressWarnings("unused")
 public class Profile
 {
     private int userId;

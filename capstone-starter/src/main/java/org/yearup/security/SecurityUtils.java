@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 public class SecurityUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(SecurityUtils.class);

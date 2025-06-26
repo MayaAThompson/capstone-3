@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 
+@SuppressWarnings("unused")
 public class ShoppingCartItem
 {
     private Product product = null;
